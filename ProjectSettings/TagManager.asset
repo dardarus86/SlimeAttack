@@ -54,7 +54,7 @@ TagManager:
   - name: Bullets
     uniqueID: 1246156697
     locked: 0
-  - name: ground
+  - name: Ground
     uniqueID: 1603224187
     locked: 0
   - name: Walls

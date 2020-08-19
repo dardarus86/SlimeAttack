@@ -9,6 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float climbSpeed = 5f;
+    [SerializeField] float projectileSpeed = 500f;
+    [SerializeField] float fireRate = 1.0f;
+    [SerializeField] float nextFire = 0.0f;
+
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] AudioClip bulletFireSound;
+    [SerializeField] Vector3 bulletSpawnToPlayerOffset = new Vector3(0, 5f,0);
+    [SerializeField] GameObject bulletSpawnLocation;
 
 
 
@@ -30,6 +38,8 @@ public class Player : MonoBehaviour
         myBodyCollider2d = GetComponent<CapsuleCollider2D>();
         myFeet = GetComponent<BoxCollider2D>();
         gravityScaleAtStart = myRigidBody.gravityScale;
+        
+
     }
 
     // Update is called once per frame
@@ -41,8 +51,9 @@ public class Player : MonoBehaviour
         Jump();
         FlipSprite();
         Climb();
-        
+        Shoot();
     }
+
 
     private void Run()
     {
@@ -80,6 +91,30 @@ public class Player : MonoBehaviour
         myRigidBody.velocity = climbVelocity;
         myRigidBody.gravityScale = 0f;
 
+    }
+
+    private void Shoot()
+    {
+        if(CrossPlatformInputManager.GetButton("Fire1"))
+        {
+            if (Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                myAnimator.SetBool("isFiring", true);
+                BulletFire();
+            }
+        }
+        else
+        {
+            myAnimator.SetBool("isFiring", false);
+        }
+    }
+
+    private void BulletFire()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnLocation.transform.position, Quaternion.identity) as GameObject;
+        bullet.GetComponent<Rigidbody2D>().velocity = Vector2.up * projectileSpeed * Time.deltaTime;
+        AudioSource.PlayClipAtPoint(bulletFireSound, transform.position);
     }
 
     private void FlipSprite()
