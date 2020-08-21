@@ -26,6 +26,7 @@ public class enemy : MonoBehaviour
     CapsuleCollider2D myBody;
     BoxCollider2D myFeet;
     Animator slimeAnimation;
+    GameSession myGameSession;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class enemy : MonoBehaviour
         myBody = GetComponent<CapsuleCollider2D>();
         myFeet = GetComponent<BoxCollider2D>();
         slimeAnimation = GetComponent<Animator>();
+        myGameSession = FindObjectOfType<GameSession>();
         
     }
     void FixedUpdate()
@@ -65,27 +67,17 @@ public class enemy : MonoBehaviour
 
     private void CheckBulletCollision()
     {
-        if(myFeet.IsTouchingLayers(LayerMask.GetMask("Bullets")))
+        if(myBody.IsTouchingLayers(LayerMask.GetMask("Bullets", "Player")))
         {
-            Debug.Log("ive been hit");
-            TakeDamage();
-        }
-    }
-
-    public void TakeDamage()
-    {
-        if(enemyHealth>0)
-        {
-            enemyHealth--;
-        }
-        if (enemyHealth == 0)
-        {
-            
-            Die();
-        }
-        else
-        {
-            Die();
+            if (enemyHealth <= 0)
+            {
+                Debug.Log("Should die here");
+                Die();
+            }
+            else if (enemyHealth > 0)
+            {
+                enemyHealth--;
+            }
         }
     }
 
@@ -97,17 +89,20 @@ public class enemy : MonoBehaviour
                 DeathAnim();
                 Debug.Log("Spawn medium enemies");
                 SpawnChildren(enemyMediumPreFab);
+                myGameSession.AddScore(100);
                 hasSpawned = true;
 
                 break;
-            case "Medium Enemy(Clone)":
+            case "Medium Enemy":
                 DeathAnim();
                 Debug.Log("Spawn small enemies");
                 SpawnChildren(enemySmallPreFab);
+                myGameSession.AddScore(50);
                 hasSpawned = true;
                 break;
-            case "Small Enemy(Clone)":
+            case "Small Enemy":
                 DeathAnim();
+                myGameSession.AddScore(10);
                 break;
         }
     }
@@ -128,11 +123,13 @@ public class enemy : MonoBehaviour
         if (!hasSpawned)
         {
             GameObject child1 = Instantiate(enemyprebsize, transform.position, Quaternion.identity);
+            child1.name = enemyprebsize.name;
             child1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             child1.GetComponent<Rigidbody2D>().angularVelocity = 0;
             Vector2 spawnLeft = new Vector2(-2.0f, 3.0f);
             child1.GetComponent<Rigidbody2D>().AddForce(spawnLeft, ForceMode2D.Impulse);
             GameObject child2 = Instantiate(enemyprebsize, transform.position, Quaternion.identity);
+            child2.name = enemyprebsize.name;
             child2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             child2.GetComponent<Rigidbody2D>().angularVelocity = 0;
             Vector2 spawnRight = new Vector2(2.0f, 3.0f);

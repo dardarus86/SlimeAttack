@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fire
+  - Box
+  - VirtualCamera
+  - Canvas
   layers:
   - Default
   - TransparentFX
@@ -22,7 +25,7 @@ TagManager:
   - Bullets
   - Props
   - Walls
-  - 
+  - LevelTransition
   - 
   - 
   - 
@@ -42,8 +45,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: background image
+    uniqueID: 1875843521
+    locked: 0
   - name: Background
     uniqueID: 1183433469
+    locked: 0
+  - name: BackgroundProp1
+    uniqueID: 2544534915
     locked: 0
   - name: Props
     uniqueID: 2721406033
@@ -65,4 +74,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4018198717
+    locked: 0
+  - name: PropInfrontOfGround
+    uniqueID: 2312211633
     locked: 0

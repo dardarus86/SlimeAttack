@@ -15,21 +15,16 @@ public class Bullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
        
         
-       if(myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+       if(myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Ground")))
         {
-            Debug.Log("collided layer");
-            Destroy(gameObject,0.02f);
+            gameObject.SetActive(false);
+            Destroy(gameObject,0.1f);
         }
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("collided on collision");
-        Destroy(gameObject);
-    }
 }
