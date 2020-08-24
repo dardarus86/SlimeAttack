@@ -51,6 +51,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -118,7 +120,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0.2
@@ -143,6 +145,7 @@ MonoBehaviour:
   jumpVelocityY: 180
   splatClip: {fileID: 8300000, guid: 33fc6960f962c794c8a85526fa0614fc, type: 3}
   enemyHealth: 20
+  enemyMass: 2
   enemyMediumPreFab: {fileID: 1123611814261396807, guid: 95df734f3ccd4f141b0a7f071c3b4752,
     type: 3}
   enemySmallPreFab: {fileID: 1123611814261396807, guid: cd33840a95a63444ba4b92e7941cc990,
