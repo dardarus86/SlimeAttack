@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class enemy : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class enemy : MonoBehaviour
     [SerializeField] float jumpVelocityY = 1f;
     [SerializeField] AudioClip splatClip;
     public int enemyHealth;
+    int enemyStartingHealth;
     [SerializeField] float enemyMass = 2;
     [SerializeField] GameObject enemyMediumPreFab;
     [SerializeField] GameObject enemySmallPreFab;
@@ -29,7 +31,7 @@ public class enemy : MonoBehaviour
     Animator slimeAnimation;
     GameSession myGameSession;
     GameObject remainingEnemies;
-    EnemyHealthbar enemyHealthBar;
+    public Slider healthBar;
 
     void Start()
     {
@@ -39,7 +41,7 @@ public class enemy : MonoBehaviour
         slimeAnimation = GetComponent<Animator>();
         myGameSession = FindObjectOfType<GameSession>();
         remainingEnemies = GameObject.Find("Enemies");
-        enemyHealthBar = FindObjectOfType<EnemyHealthbar>();
+        //healthBar = GetComponent<Slider>();
         
     }
     void FixedUpdate()
@@ -85,10 +87,10 @@ public class enemy : MonoBehaviour
             }
             else if (enemyHealth > 0)
             {
-                enemyHealthBar.ChangeHealthBar();
                 enemyHealth--;
             }
         }
+        healthBar.value = enemyHealth;
     }
 
     private void Die()

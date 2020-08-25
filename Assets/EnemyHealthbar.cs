@@ -18,12 +18,13 @@ public class EnemyHealthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+        Vector3 healthChange = new Vector3(enemyHealth.enemyHealth / enemyStartingHealth, 0, 0);
+        transform.localScale += healthChange;
     }
 
     public void ChangeHealthBar()
     {
-        Vector3 healthChange = new Vector3(enemyStartingHealth/enemyHealth.enemyHealth, 1, 1);
+        Vector3 healthChange = new Vector3(enemyHealth.enemyHealth/enemyStartingHealth, 0, 0);
         transform.localScale += healthChange;
     }
 }
