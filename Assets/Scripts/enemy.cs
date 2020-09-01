@@ -41,20 +41,15 @@ public class enemy : MonoBehaviour
         slimeAnimation = GetComponent<Animator>();
         myGameSession = FindObjectOfType<GameSession>();
         remainingEnemies = GameObject.Find("Enemies");
-        //healthBar = GetComponent<Slider>();
-        
     }
     void FixedUpdate()
     {
-        
-
         if (myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             //myRigidBody.velocity = Vector2.zero;
             myRigidBody.angularVelocity = 0;
             Jump();
         }
-
         CheckBulletCollision();
     }
 
@@ -63,7 +58,7 @@ public class enemy : MonoBehaviour
         if (myRigidBody.velocity.x > Mathf.Epsilon)
         {
             myRigidBody.velocity = Vector2.zero;
-            jumpvelocity = new Vector2(Random.Range(40,100)* enemyMass, Random.Range(160, 200) * enemyMass);
+            jumpvelocity = new Vector2(Random.Range(40,100)* enemyMass, Random.Range(180, 240) * enemyMass);
         }
         else
         {
